@@ -7,10 +7,12 @@ app.use(express.json());
 
 // In-memory data store for cars
 const cars = [
-  { id: 1, make: 'Toyota', model: 'Corolla', year: 2018, price: 12000, imageUrl: 'https://picsum.photos/seed/toyota/400/240' },
-  { id: 2, make: 'Honda', model: 'Civic', year: 2019, price: 14000, imageUrl: 'https://picsum.photos/seed/honda/400/240' },
+  { id: 1, make: 'BMW', model: 'M3 Competition', year: 2022, price: 75900, imageUrl: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?q=80&w=1200&auto=format&fit=crop' },
+  { id: 2, make: 'Mercedes-Benz', model: 'C63 AMG', year: 2021, price: 82900, imageUrl: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=1200&auto=format&fit=crop' },
+  { id: 3, make: 'Toyota', model: 'Corolla', year: 2018, price: 12000, imageUrl: 'https://picsum.photos/seed/toyota/400/240' },
+  { id: 4, make: 'Honda', model: 'Civic', year: 2019, price: 14000, imageUrl: 'https://picsum.photos/seed/honda/400/240' },
 ];
-let nextId = 3;
+let nextId = 5;
 
 function renderPage() {
   const carCards = cars
@@ -35,35 +37,40 @@ function renderPage() {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Car Market</title>
+    <title>Divyans Car Market</title>
     <style>
       :root { --bg:#0b1020; --card:#11162a; --text:#e8ecf3; --muted:#a6b0c2; --accent:#5cc8ff; --danger:#ff6b6b; }
       * { box-sizing: border-box; }
-      body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: radial-gradient(1200px 600px at 10% -20%, #1a2240, transparent), radial-gradient(800px 400px at 90% 0%, #1d2a4d, transparent), var(--bg); color: var(--text); }
+      body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: radial-gradient(1200px 600px at 10% -20%, #1a2240, transparent), radial-gradient(800px 400px at 90% 0%, #1d2a4d, transparent), var(--bg); color: var(--text); animation: fadeIn .5s ease-out; }
       header { position: sticky; top: 0; backdrop-filter: saturate(1.2) blur(6px); background: rgba(11,16,32,0.7); border-bottom: 1px solid #1f2a4a; padding: 14px 18px; z-index: 10; }
-      header h1 { margin:0; font-size: 20px; letter-spacing: 0.4px; }
+      header h1 { margin:0; font-size: 22px; letter-spacing: 0.8px; background: linear-gradient(90deg, #6dd6ff, #c77dff); -webkit-background-clip: text; background-clip: text; color: transparent; }
       .container { max-width: 960px; margin: 20px auto; padding: 0 16px; }
-      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-      .car-card { background: linear-gradient(180deg, #121a32, #0f1630); border: 1px solid #1f2a4a; border-radius: 14px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.35); transition: transform .15s ease, box-shadow .15s ease; }
-      .car-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,0.45); }
-      .car-card img { display: block; width: 100%; height: 160px; object-fit: cover; }
-      .car-info { padding: 12px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+      .car-card { background: linear-gradient(180deg, #121a32, #0f1630); border: 1px solid #1f2a4a; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.35); transition: transform .2s ease, box-shadow .2s ease; transform: translateY(8px); opacity: 0; animation: cardIn .6s ease forwards; }
+      .car-card:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 12px 26px rgba(0,0,0,0.5); }
+      .car-card img { display: block; width: 100%; height: 170px; object-fit: cover; filter: saturate(1.05); }
+      .car-info { padding: 14px; }
       h3 { margin: 0 0 8px 0; font-size: 16px; }
-      .price { margin: 0; color: var(--accent); font-weight: 700; }
+      .price { margin: 0; color: var(--accent); font-weight: 800; letter-spacing: .2px; }
       form.inline { display: inline; }
-      .delete { margin-top: 8px; padding: 6px 10px; background: linear-gradient(180deg, #ff7676, #ff5b5b); border: 1px solid #ff8787; color: white; border-radius: 10px; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.2); }
-      .panel { background: #0e1530; border: 1px solid #1f2a4a; border-radius: 14px; padding: 14px; margin-bottom: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+      .delete { margin-top: 8px; padding: 6px 10px; background: linear-gradient(180deg, #ff9c9c, #ff6b6b); border: 1px solid #ff8787; color: white; border-radius: 10px; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.2); }
+      .panel { background: #0e1530; border: 1px solid #1f2a4a; border-radius: 16px; padding: 16px; margin-bottom: 18px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); animation: slideDown .5s ease; }
       .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
       label { font-size: 12px; color: var(--muted); display:block; margin-bottom: 6px; }
       input { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #233056; background: #0b132b; color: var(--text); }
-      button.add { padding: 10px 14px; background: linear-gradient(180deg, #6dd6ff, #35b8f3); border: 1px solid #5cc8ff; color: #0b1020; font-weight: 700; border-radius: 12px; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.35); }
+      button.add { padding: 10px 14px; background: linear-gradient(180deg, #6dd6ff, #35b8f3); border: 1px solid #5cc8ff; color: #0b1020; font-weight: 800; border-radius: 12px; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.35); transition: transform .15s ease; }
+      button.add:hover { transform: translateY(-2px); }
       footer { text-align:center; color: var(--muted); font-size:12px; padding: 24px 0 40px; }
       .empty { color: var(--muted); text-align:center; padding: 24px; border: 1px dashed #233056; border-radius: 10px; }
+
+      @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+      @keyframes slideDown { from { transform: translateY(-6px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+      @keyframes cardIn { from { transform: translateY(10px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
     </style>
   </head>
   <body>
     <header>
-      <h1>Car Market</h1>
+      <h1>Divyans Car Market</h1>
     </header>
     <main class="container">
       <section class="panel">
