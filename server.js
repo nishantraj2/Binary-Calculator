@@ -11,8 +11,13 @@ const cars = [
   { id: 2, make: 'Mercedes-Benz', model: 'C63 AMG', year: 2021, price: 82900, imageUrl: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=1200&auto=format&fit=crop' },
   { id: 3, make: 'Toyota', model: 'Corolla', year: 2018, price: 12000, imageUrl: 'https://picsum.photos/seed/toyota/400/240' },
   { id: 4, make: 'Honda', model: 'Civic', year: 2019, price: 14000, imageUrl: 'https://picsum.photos/seed/honda/400/240' },
+  { id: 5, make: 'BMW', model: 'X5', year: 2020, price: 58000, imageUrl: 'https://images.unsplash.com/photo-1621135802920-133df287f89b?q=80&w=1200&auto=format&fit=crop' },
+  { id: 6, make: 'Mercedes-Benz', model: 'S-Class', year: 2020, price: 95000, imageUrl: 'https://images.unsplash.com/photo-1606661640295-1b3ab1df97fc?q=80&w=1200&auto=format&fit=crop' },
+  { id: 7, make: 'Audi', model: 'A4', year: 2018, price: 20000, imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1200&auto=format&fit=crop' },
+  { id: 8, make: 'Tesla', model: 'Model S', year: 2022, price: 89000, imageUrl: 'https://images.unsplash.com/photo-1549921296-3b4a3d7c1d2a?q=80&w=1200&auto=format&fit=crop' },
+  { id: 9, make: 'Ford', model: 'Mustang GT', year: 2017, price: 36000, imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop' },
 ];
-let nextId = 5;
+let nextId = 10;
 
 function renderPage() {
   const carCards = cars
@@ -111,7 +116,9 @@ function renderPage() {
       </section>
     </main>
     <footer>
-      Built with Express. Data is in-memory and resets on restart.
+      <div style="margin-bottom:6px">Built with Express. Data is in-memory and resets on restart.</div>
+      <div style="font-weight:700">Owner: Divyans Garg</div>
+      <div>Phone: <a href="tel:9874561213" style="color:var(--accent); text-decoration:none">9874561213</a></div>
     </footer>
   </body>
   </html>
